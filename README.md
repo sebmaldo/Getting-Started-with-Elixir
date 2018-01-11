@@ -83,3 +83,66 @@ defmodule ModulePlayground do
     end
 end
 ```
+
+Se puede definir un alias con el comando **alias** para evitar la colisión de nombres, un ejemplo.
+```elixir
+defmodule ModulePlayground do
+    import IO, only: [puts: 1]
+    import Kernel, except: [inspect: 1]
+
+    alias ModulePlayground.Misc.Util.Math, as: MyMath
+
+    def say_here do
+        inspect "I'm Here"
+    end
+
+    def inspect(param1) do
+        puts "Starting Output"
+        puts param1
+        puts "Ending output"
+    end
+
+    def print_sum do
+        MyMath.add(1,2)
+    end
+end
+```
+Elixir tiene modulos y macros, en caso de necesitar utilizar una macro en una función de elixir, se debe usar la directiva require, en el ejemplo abajo se requiren todas las macros del modulo Integer.
+```elixir
+defmodule ModulePlayground do
+    import IO, only: [puts: 1]
+    import Kernel, except: [inspect: 1]
+
+    alias ModulePlayground.Misc.Util.Math, as: MyMath
+    require Integer
+
+    def say_here do
+        inspect "I'm Here"
+    end
+
+    def inspect(param1) do
+        puts "Starting Output"
+        puts param1
+        puts "Ending output"
+    end
+
+    def print_sum do
+        MyMath.add(1,2)
+    end
+
+    def print_is_even(num) do
+        puts "Is #{num} even? #{Integer.is_even(num)}"
+    end
+end
+```
+
+## Resúmen
+1. Import
+    * Incluye módulos y funciones.
+    * Incluye o excluye funciones específicas.
+2. Alias
+    * Reduce la cantidad de tipeo.
+    * Puede renombrar módulos.
+3. Require
+    * Permite incluir macros en los módulos.
+
