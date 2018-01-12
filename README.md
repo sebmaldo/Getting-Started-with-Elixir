@@ -136,7 +136,7 @@ defmodule ModulePlayground do
 end
 ```
 
-## Resúmen
+### Resúmen
 1. Import
     * Incluye módulos y funciones.
     * Incluye o excluye funciones específicas.
@@ -146,3 +146,22 @@ end
 3. Require
     * Permite incluir macros en los módulos.
 
+## Funciones
+Si tomamos la función de abajo
+```elixir
+defmodule Sample.Enum do
+    def first(list) do
+        hd(list)
+    end
+end
+```
+Esta función en notación elixir sería **first/1**, primero se toma el nombre de la función y el segundo es la aridad **{nombre}/{aridad}**, además se puede notar que no es necesario retornar, siempre se retorna la última expresión evaluada, como en ruby.
+
+Además se debe tomar en cuenta el manejo de patrones, en la función de abajo
+```elixir
+defmodule Sample.Enum do
+    def first([]), do: nil
+    def first([head | _ ]), do: head
+end
+```
+Se define la función con el mismo nombre pero con un patrón diferente al recibir, la primera recibe una lista vacía y la segunda una lista con por lo menos un head. En lugar de un if, se recomienda usar los patrones de match.
