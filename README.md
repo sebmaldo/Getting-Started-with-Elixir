@@ -165,3 +165,56 @@ defmodule Sample.Enum do
 end
 ```
 Se define la función con el mismo nombre pero con un patrón diferente al recibir, la primera recibe una lista vacía y la segunda una lista con por lo menos un head. En lugar de un if, se recomienda usar los patrones de match.
+
+### Guard Clauses
+Una clausula es una especie de condición de cuando o no ejecutar una función, por ejemplo la función anterior, lograda con patrones, se pude hacer con clausulas de la siguiente manera
+```elixir
+defmodule Sample.Enum do
+    def first(list) when length(list)=0 do: nil
+    def first([head | _ ]), do: head
+end
+```
+Después de la definición viene la palabra reservada when, que permite hacer una distinción de cuando ejecutar esa función, si no se puede ejecutar, sige con la siguiente función.
+
+En una clausula se pueden usar
+ - comparaciones (==, !=, ===, !==, >, >=, <, <=)
+ - booleanos (and, or, not)
+ - operadores aritmeticos (+, -, * /)
+ - concatenaciones binarias <>
+ - el operador **in** siempre y cuando el lado derecho sea un rango o una lista
+ - chequeos de tipo
+    - is_atom/1
+    - is_binary/1
+    - is_bitstring/1
+    - is_boolean/1
+    - is_float/1
+    - is_function/1
+    - is_function/2
+    - is_integer/1
+    - is_list/1
+    - is_map/1
+    - is_nil/1
+    - is_number/1
+    - is_pid/1
+    - is_port/1
+    - is_reference/1
+    - is_tuple/1
+- funciones adicionales
+    - abs(number)
+    - binary_path(binary, start, length)
+    - bit_size(bitstring)
+    - byte_size(bitstring)
+    - div(integer, integer)
+    - elem(tuple, n)
+    - hd(list)
+    - length(list)
+    - map_size(map)
+    - node()
+    - node(pid | ref | port)
+    - rem(integer, integer)
+    - round(number)
+    - self()
+    - tl(list)
+    - trunc(number)
+    - tuple_size(tuple)
+    
