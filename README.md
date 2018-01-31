@@ -217,4 +217,35 @@ En una clausula se pueden usar
     - tl(list)
     - trunc(number)
     - tuple_size(tuple)
-    
+
+### Parámetros por defecto
+Este es un valor que se usa para una variable si la variable no está especificada, se usa \\\\ para separar el valor por defecto.
+```elixir
+    def add(list, val \\ 0) do
+        [val | list]
+    end
+```
+En el ejemplo arriba, el valor por defecto de val es cero, hay que tener cuidado con la especificación de los parametros por defecto, porque puede afectar como se interpreta el match para los demás parámetros.
+
+Ahora supongamos tenemos una función con dos patrones, como la que sigue.
+```elixir
+def first([head, _], val), do: head
+def first([], val \\ nil), do: val
+```
+Al cargarlo en elixir se lanza un warning, que nos dice que para una función, si vamos a usar valores por defecto, tenemos que usar una declaración de función con los valores por defecto.
+```elixir
+def first(list, val \\ nil)
+def first([head, _], val), do: head
+def first([], val), do: val
+```
+Con esto se declara una "cabecera" de función que define el valor por defecto para los patrones de la función. Esta "cabecera" es una función que no define un cuerpo.
+
+### Funciones privadas
+
+Las funciones se pueden definir como privadas, para que no se pueda tener acceso más que desde el mismo módulo, se usa la macro **defp** en lugar de la macro **def**. Abajo un ejemplo de función privada.
+
+```elixir
+    defp trace(string) do
+        IO.puts("El valor entregado es #{string}")
+    end
+```
